@@ -84,7 +84,7 @@ def create_products():
     product.create()
     app.logger.info("Product with new id [%s] saved!", product.id)
 
-    message = product.serialize()
+    
 
 
 
