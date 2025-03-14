@@ -99,13 +99,13 @@ class TestProductRoutes(TestCase):
     def test_index(self):
         """It should return the index page"""
         response = self.client.get("/")
-        self.assertTrue(response.status_code == status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIn(b"Product Catalog Administration", response.data)
 
     def test_health(self):
         """It should be healthy"""
         response = self.client.get("/health")
-        self.assertTrue(response.status_code == status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
         self.assertEqual(data['message'], 'OK')
 
@@ -114,7 +114,7 @@ class TestProductRoutes(TestCase):
         # get the id of a product
         test_product = self._create_products(1)[0]
         response = self.client.get(f"{BASE_URL}/{test_product.id}")
-        self.assertTrue(response.status_code == status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
         self.assertEqual(data["name"], test_product.name)
 
@@ -180,7 +180,7 @@ class TestProductRoutes(TestCase):
         new_product = response.get_json()
         new_product["description"] = "unknown"
         response = self.client.put(f"{BASE_URL}/{new_product['id']}", json=new_product)
-        self.assertTrue(response.status_code == status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         updated_product = response.get_json()
         self.assertEqual(updated_product["description"], "unknown")
 
@@ -206,7 +206,7 @@ class TestProductRoutes(TestCase):
     def get_product_count(self):
         """save the current number of products"""
         response = self.client.get(BASE_URL)
-        self.assertTrue(response.status_code == status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
         # logging.debug("data = %s", data)
         return len(data)
@@ -216,7 +216,7 @@ class TestProductRoutes(TestCase):
         """It should Get a list of Products"""
         self._create_products(5)
         response = self.client.get(BASE_URL)
-        self.assertTrue(response.status_code == status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
         self.assertEqual(len(data), 5)
 
@@ -228,7 +228,7 @@ class TestProductRoutes(TestCase):
         response = self.client.get(
             BASE_URL, query_string=f"name={quote_plus(test_name)}"
         )
-        self.assertTrue(response.status_code == status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
         self.assertEqual(len(data), name_count)
         # check the data just to be sure
@@ -245,7 +245,7 @@ class TestProductRoutes(TestCase):
 
         # test for available
         response = self.client.get(BASE_URL, query_string=f"category={category.name}")
-        self.assertTrue(response.status_code == status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
         self.assertEqual(len(data), found_count)
         # check the data just to be sure
@@ -261,7 +261,7 @@ class TestProductRoutes(TestCase):
         response = self.client.get(
             BASE_URL, query_string="available=true"
         )
-        self.assertTrue(response.status_code == status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
         self.assertEqual(len(data), available_count)
         # check the data just to be sure
