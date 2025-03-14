@@ -78,7 +78,7 @@ class TestProductModel(unittest.TestCase):
         self.assertEqual(product.id, None)
         self.assertEqual(product.name, "Fedora")
         self.assertEqual(product.description, "A red hat")
-        self.assertEqual(product.available, True)
+        self.assertTrue(product.available)
         self.assertEqual(product.price, 12.50)
         self.assertEqual(product.category, Category.CLOTHS)
 
