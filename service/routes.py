@@ -78,7 +78,7 @@ def create_products():
     check_content_type("application/json")
 
     data = request.get_json()
-    app.logger.info("Processing: %s", data)
+    app.logger.info("Processing data")
     product = Product()
     product.deserialize(data)
     product.create()
