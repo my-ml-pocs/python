@@ -73,7 +73,7 @@ class TestProductModel(unittest.TestCase):
     def test_create_a_product(self):
         """It should Create a product and assert that it exists"""
         product = Product(name="Fedora", description="A red hat", price=12.50, available=True, category=Category.CLOTHS)
-        self.assertIsNot(str(product), "<Product Fedora id=[None]>")
+        self.assertIsNot(product, None)
         self.assertIsNotNone(product)
         self.assertIsNone(product.id)
         self.assertEqual(product.name, "Fedora")
