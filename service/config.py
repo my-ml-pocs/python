@@ -3,37 +3,22 @@ Global Configuration for Application
 """
 import os
 import logging
-from urllib.parse import urlparse, urlunparse
-from getpass import getpass
 
-# Function to get password securely
-def get_db_password():
-    return getpass("Enter database password: ")
+# Get database password from environment variable
+DB_PASSWORD = os.getenv("DB_PASSWORD")
+
+# If DB_PASSWORD is not set, raise an error
+if not DB_PASSWORD:
+    raise ValueError("Database password not set. Please set the DB_PASSWORD environment variable.")
 
 # Get configuration from environment
 DATABASE_URI = os.getenv(
     "DATABASE_URI",
-    "postgresql://postgres@localhost:5432/postgres"
-)
-
-# Parse the DATABASE_URI
-parsed_uri = urlparse(DATABASE_URI)
-
-# Get the password securely
-db_password = get_db_password()
-
-# Reconstruct the URI with the password
-protected_uri = urlunparse(
-    (parsed_uri.scheme, 
-     f"{parsed_uri.username}:{db_password}@{parsed_uri.hostname}:{parsed_uri.port}",
-     parsed_uri.path, 
-     parsed_uri.params, 
-     parsed_uri.query, 
-     parsed_uri.fragment)
+    f"postgresql://postgres:{DB_PASSWORD}@localhost:5432/postgres"
 )
 
 # Configure SQLAlchemy
-SQLALCHEMY_DATABASE_URI = protected_uri
+SQLALCHEMY_DATABASE_URI = DATABASE_URI
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 # Secret for session management
