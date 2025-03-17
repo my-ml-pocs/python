@@ -1,7 +1,7 @@
 FROM python:3.9-slim
 
 # Added libraries for PostgreSQL before pip install
-RUN apt-get update && apt-get install -y gcc libpq-dev && apt-get clean
+RUN apt-get update && apt-get install -y gcc libpq-dev && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Create working folder and install dependencies
 WORKDIR /app
