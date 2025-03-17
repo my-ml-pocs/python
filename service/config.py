@@ -13,10 +13,12 @@ DATABASE_URI = os.getenv(
 # Configure SQLAlchemy
 SQLALCHEMY_DATABASE_URI = DATABASE_URI
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+# Removed commented out code
 
 # Configure SQLAlchemy
 SQLALCHEMY_DATABASE_URI = DATABASE_URI
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+# Removed commented out code
 
 
 # Secret for session management
