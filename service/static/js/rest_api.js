@@ -9,11 +9,7 @@ $(function () {
         $("#product_id").val(res.id);
         $("#product_name").val(res.name);
         $("#product_description").val(res.description);
-        if (res.available) {
-            $("#product_available").val("true");
-        } else {
-            $("#product_available").val("false");
-        }
+        $("#product_available").val(res.available ? "true" : "false");
         $("#product_category").val(res.category);
         $("#product_price").val(res.price);
     }
