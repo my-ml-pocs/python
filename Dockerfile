@@ -7,7 +7,8 @@ RUN apt-get update && apt-get install -y gcc libpq-dev && apt-get clean && rm -r
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install -U pip wheel && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install --no-cache-dir -r requirements.txt && \
+    rm -rf ~/.cache/pip
 
 # Copy the application contents
 COPY service/ ./service/
