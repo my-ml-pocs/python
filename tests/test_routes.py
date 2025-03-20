@@ -87,7 +87,7 @@ class TestProductRoutes(TestCase):
         for _ in range(count):
             test_product = ProductFactory()
             response = self.client.post(BASE_URL, json=test_product.serialize())
-            self.assertTrue(
+            self.assertEqual(
                 response.status_code, status.HTTP_201_CREATED, "Could not create test product"
             )
             new_product = response.get_json()
